@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.16'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'cn.cruder.dousx'
+version = '0.0.1-SNAPSHOT'
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+}
+
+ext {
+    lombokVersion = '1.18.24'
+}
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation ("org.springframework.boot:spring-boot-starter-data-jpa") {
+        exclude group: 'org.hibernate',module:'hibernate-entitymanager'
+        exclude group: 'org.hibernate',module:'hibernate-core'
+    }
+    implementation 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.7.9'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-configuration-processor'
+
+
+    // lombok  compileOnly & annotationProcessor
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testImplementation "org.projectlombok:lombok:${lombokVersion}"
+
+
+    implementation 'org.postgresql:postgresql'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'cn.hutool:hutool-all:5.8.18'
+    // java.sql.SQLFeatureNotSupportedException: 这个 org.postgresql.jdbc.PgDatabaseMetaData.getRowIdLifetime() 方法尚未被实作。  https://github.com/apache/shardingsphere/issues/15432
+    implementation 'org.apache.shardingsphere:shardingsphere-jdbc-core:5.2.1'
+    // implementation "org.apache.shardingsphere:shardingsphere-jdbc-core-spring-boot-starter:${shardingVersion}"
+    implementation 'org.yaml:snakeyaml:1.33'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

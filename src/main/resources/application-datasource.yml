@@ -1,0 +1,7 @@
+jesjc:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/jesjc-dev?currentSchema=public&binaryTransfer=false
+    username: dev
+    password: dev
+    type: com.zaxxer.hikari.HikariDataSource

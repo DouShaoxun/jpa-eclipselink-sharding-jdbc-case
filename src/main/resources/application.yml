@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: jpa-eclipselink-sharding-jdbc-case
+  jpa:
+    properties:
+      eclipselink:
+        weaving: false
+    show-sql: true
+  profiles:
+    # application-application-datasource.yml
+    include: datasource
